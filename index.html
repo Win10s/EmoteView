@@ -1,285 +1,40 @@
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>データ受信テスト</title>
-<style>
-	body{
-		background: #1e1e1e;
-	}
-    .pic_frame {
-		width: 80%;
-		margin: 0 auto;
-		max-width: 500px;
-		border:0;
-		padding:10px;
-		font-size:1.3em;
-		font-family:Arial, sans-serif;
-    }
-
-    table {
-		text-align: center;
-		width: 80%;
-		margin: 0 auto;
-		max-width: 500px;
-		border:0;
-		padding:10px;
-		font-size:1.3em;
-		font-family:Arial, sans-serif;
-		color:#c2c2c2;
-		border:solid 1px #7d7d7d;
-    }
-    h2{
-
-		text-align: center;
-		border:0;
-		padding:10px;
-		font-size:1.5em;
-		font-family:Arial, sans-serif;
-		color:#ffffff;
-    }
-  </style>
-<body>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<div id="bttv">
-</div>
-<script type="text/javascript">
-
-	get_text = document.location.search;
-	get_text = get_text.substring(1,get_text.length);
-
-	var bttv = false;
-	var frankerfacez = false;
-	var name;
-
-	get_text = get_text.split("&").forEach(function(value) {
-		var i = value.split("=")[0].length;
-		var s1 = value.substring(0, i);
-		var s2 = value.substring(i + 1);
-
-		if(s1 === "bttv"){
-			if(s2 === "true"){
-				bttv = true;
-			}else{
-				bttv = false;
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>データ受信テスト</title>
+		<style>
+			body{
+				background: #1e1e1e;
 			}
-		}
-		if(s1 === "frankerfacez"){
-			if(s2 === "true"){
-				frankerfacez = true;
-			}else{
-				frankerfacez = false;
+			.inner{
+				width: 80%;
+				margin: 0 auto;
+				max-width: 500px;
+				border:0;
+				padding:10px;
+				font-size:1.3em;
+				font-family:Arial, sans-serif;
+				color:#c2c2c2;
+				border:solid 1px #7d7d7d;
 			}
-		}
-		if(s1 === "name"){
-			name = s2;
-		}
-	});
-	var twitchKey = "q6batx0epp608isickayubi39itsckt";
-	var twitchAccept = "application/vnd.twitchtv.v5+json"
-	var twitchKraken = 'https://api.twitch.tv/kraken'
+		  </style>
+  		<div class="inner">
+			<body>
+				<form action="customemote/index.html" method="get">
+					Twitch名
+					<input name="name" value="shinjifromjapanxd" type="text">
+					<br>
+					BTTV
+					<input name="bttv" value="true" type="text">
+					<br>
+					FrankerFaceZ
+					<input name="frankerfacez" value="true" type="text">
+					<br>
+		        	<input type="submit" value="表示">
+					<br>
+				</form>
 
-	var elmBttv = document.getElementById("bttv");
-
-	$.ajaxSetup({
-		headers: {
-			'Accept': twitchAccept,
-			'Client-ID': twitchKey 
-		}
-	});
-
-
-	if(bttv){
-		var midashi = document.createElement("h2");
-		midashi.appendChild(document.createTextNode("そのチャンネル内で使えるエモート(BTTV)"));
-		elmBttv.appendChild(midashi);
-
-		var table2 = document.createElement("table");
-		var tr3 = document.createElement("tr");
-		var tr4 = document.createElement("tr");
-
-		var n = 0;
-
-		$.getJSON(twitchKraken + '/users?login=' + name, function (json) {
-			var id = json.users[0]._id;
-			$.getJSON('https://api.betterttv.net/3/cached/users/twitch/' + id, function (json2) {
-				n = 0;
-				json2.channelEmotes.forEach(function(value) {
-					var img = document.createElement("img");
-			        img.src = "https://cdn.betterttv.net/emote/" + value.id + "/1x";
-			        img.width = 32;
-			        img.height = 32;
-					var text = document.createTextNode(value.code);
-					if(n >= 3){
-						table2.appendChild(tr3);
-						table2.appendChild(tr4);
-						tr3 = document.createElement("tr");
-						tr4 = document.createElement("tr");
-				    	n = 0;
-				    }
-					var td1 = document.createElement("td");
-					td1.appendChild(img);
-			       	tr3.appendChild(td1);
-
-					var td2 = document.createElement("td");
-					td2.appendChild(text);
-			       	tr4.appendChild(td2);
-			       	n++;
-				});
-				json2.sharedEmotes.forEach(function(value) {
-					var img = document.createElement("img");
-			        img.src = "https://cdn.betterttv.net/emote/" + value.id + "/1x";
-			        img.width = 32;
-			        img.height = 32;
-					var text = document.createTextNode(value.code);
-					if(n >= 3){
-						tr3 = document.createElement("tr");
-						tr4 = document.createElement("tr");
-				    	n = 0;
-				    }
-					var td1 = document.createElement("td");
-					td1.appendChild(img);
-			       	tr3.appendChild(td1);
-
-					var td2 = document.createElement("td");
-					td2.appendChild(text);
-			       	tr4.appendChild(td2);
-			       	n++;
-					table2.appendChild(tr3);
-					table2.appendChild(tr4);
-				});
-			});
-		});
-		elmBttv.appendChild(table2);
-
-
-	}
-	$.ajaxSettings.headers = undefined;
-	if(frankerfacez){
-		midashi = document.createElement("h2");
-		midashi.appendChild(document.createTextNode("そのチャンネル内で使えるエモート(FrankerFaceZ)"));
-		elmBttv.appendChild(midashi);
-		var table4 = document.createElement("table");
-		var tr7 = document.createElement("tr");
-		var tr8 = document.createElement("tr");
-		$.getJSON('https://api.frankerfacez.com/v1/room/' + name, function (json) {
-			for (const [key, value] of Object.entries(json.sets)) {
-				if(key + "" === json.room.set + ""){
-					value.emoticons.forEach(function(value2) {
-						for (const [key2, value3] of Object.entries(value2.urls)) {
-							if(key2 + "" === "1"){
-								var img = document.createElement("img");
-							    img.src = "https://" + value3;
-						        img.width = 32;
-						        img.height = 32;
-								var text = document.createTextNode(value2.name);
-								if(n >= 3){
-									tr7 = document.createElement("tr");
-									tr8 = document.createElement("tr");
-							    	n = 0;
-							    }
-								var td1 = document.createElement("td");
-								td1.appendChild(img);
-						       	tr7.appendChild(td1);
-
-								var td2 = document.createElement("td");
-								td2.appendChild(text);
-						       	tr8.appendChild(td2);
-
-						       	n++;
-								table4.appendChild(tr7);
-								table4.appendChild(tr8);
-							}
-						}
-					});
-				}
-			}
-		});
-		elmBttv.appendChild(table4);
-	}
-
-	if(bttv){
-		var midashi = document.createElement("h2");
-		midashi.appendChild(document.createTextNode("グローバル(BTTV)"));
-		elmBttv.appendChild(midashi);
-		var table = document.createElement("table");
-		var tr1 = document.createElement("tr");
-		var tr2 = document.createElement("tr");
-		$.getJSON('https://api.betterttv.net/3/cached/emotes/global', function (json) {
-			n = 0;
-			json.forEach(function(value) {
-				var img = document.createElement("img");
-		        img.src = "https://cdn.betterttv.net/emote/" + value.id + "/1x";
-		        img.width = 32;
-		        img.height = 32;
-				var text = document.createTextNode(value.code);
-				if(n >= 3){
-					tr1 = document.createElement("tr");
-					tr2 = document.createElement("tr");
-			    	n = 0;
-			    }
-				var td1 = document.createElement("td");
-				td1.appendChild(img);
-		       	tr1.appendChild(td1);
-
-				var td2 = document.createElement("td");
-				td2.appendChild(text);
-		       	tr2.appendChild(td2);
-
-		       	n++;
-				table.appendChild(tr1);
-				table.appendChild(tr2);
-			});
-		});
-
-		elmBttv.appendChild(table);
-	}
-	if(frankerfacez){
-		var midashi = document.createElement("h2");
-		midashi.appendChild(document.createTextNode("グローバル(FrankerFaceZ)"));
-		elmBttv.appendChild(midashi);
-
-		var table3 = document.createElement("table");
-		var tr5 = document.createElement("tr");
-		var tr6 = document.createElement("tr");
-		$.getJSON('https://api.frankerfacez.com/v1/set/global', function (json) {
-			n = 0;
-			json.default_sets.forEach(function(value) {
-				for (const [key, value2] of Object.entries(json.sets)) {
-					if(key + "" === value + ""){
-						value2.emoticons.forEach(function(value3) {
-							for (const [key2, value4] of Object.entries(value3.urls)) {
-								if(key2 + "" === "1"){
-									var img = document.createElement("img");
-							        img.src = "https://" + value4;
-							        img.width = 32;
-							        img.height = 32;
-									var text = document.createTextNode(value3.name);
-									if(n >= 3){
-										tr5 = document.createElement("tr");
-										tr6 = document.createElement("tr");
-								    	n = 0;
-								    }
-									var td1 = document.createElement("td");
-									td1.appendChild(img);
-							       	tr5.appendChild(td1);
-
-									var td2 = document.createElement("td");
-									td2.appendChild(text);
-							       	tr6.appendChild(td2);
-							       	n++;
-									table3.appendChild(tr5);
-									table3.appendChild(tr6);
-								}
-							}
-						});
-					}
-				};
-			});
-		});
-		elmBttv.appendChild(table3);
-	}
-	
-</script>
-</body>
+			</body>
+		</div>
+	</head>
 </html>
