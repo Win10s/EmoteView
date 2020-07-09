@@ -60,6 +60,71 @@
 
 	if(bttv){
 		var midashi = document.createElement("h2");
+		midashi.appendChild(document.createTextNode("そのチャンネル内で使えるエモート(BTTV)"));
+		elmBttv.appendChild(midashi);
+
+		var table2 = document.createElement("table");
+		var tr3 = document.createElement("tr");
+		var tr4 = document.createElement("tr");
+
+
+		$.getJSON(twitchKraken + '/users?login=' + name, function (json) {
+			var id = json.users[0]._id;
+			$.getJSON('https://api.betterttv.net/3/cached/users/twitch/' + id, function (json2) {
+				n = 0;
+				json2.channelEmotes.forEach(function(value) {
+					console.log(n);
+					var img = document.createElement("img");
+			        img.src = "https://cdn.betterttv.net/emote/" + value.id + "/1x";
+			        img.width = 32;
+			        img.height = 32;
+					var text = document.createTextNode(value.code);
+					if(n >= 3){
+						table2.appendChild(tr3);
+						table2.appendChild(tr4);
+						tr3 = document.createElement("tr");
+						tr4 = document.createElement("tr");
+				    	n = 0;
+				    }
+					var td1 = document.createElement("td");
+					td1.appendChild(img);
+			       	tr3.appendChild(td1);
+
+					var td2 = document.createElement("td");
+					td2.appendChild(text);
+			       	tr4.appendChild(td2);
+			       	n++;
+				});
+				json2.sharedEmotes.forEach(function(value) {
+					console.log(n);
+					var img = document.createElement("img");
+			        img.src = "https://cdn.betterttv.net/emote/" + value.id + "/1x";
+			        img.width = 32;
+			        img.height = 32;
+					var text = document.createTextNode(value.code);
+					if(n >= 3){
+						table2.appendChild(tr3);
+						table2.appendChild(tr4);
+						tr3 = document.createElement("tr");
+						tr4 = document.createElement("tr");
+				    	n = 0;
+				    }
+					var td1 = document.createElement("td");
+					td1.appendChild(img);
+			       	tr3.appendChild(td1);
+
+					var td2 = document.createElement("td");
+					td2.appendChild(text);
+			       	tr4.appendChild(td2);
+			       	n++;
+				});
+			});
+		});
+		table2.appendChild(tr3);
+		table2.appendChild(tr4);
+		elmBttv.appendChild(table2);
+
+		midashi = document.createElement("h2");
 		midashi.appendChild(document.createTextNode("グローバル(BTTV)"));
 		elmBttv.appendChild(midashi);
 		var n = 0;
@@ -96,47 +161,6 @@
 		table.appendChild(tr2);
 		elmBttv.appendChild(table);
 
-		midashi = document.createElement("h2");
-		midashi.appendChild(document.createTextNode("そのチャンネル内で使えるエモート(BTTV)"));
-		elmBttv.appendChild(midashi);
-
-		var table2 = document.createElement("table");
-		var tr3 = document.createElement("tr");
-		var tr4 = document.createElement("tr");
-
-
-		$.getJSON(twitchKraken + '/users?login=' + name, function (json) {
-			var id = json.users[0]._id;
-			$.getJSON('https://api.betterttv.net/3/cached/users/twitch/' + id, function (json2) {
-				n = 0;
-				json2.sharedEmotes.forEach(function(value) {
-					console.log(n);
-					var img = document.createElement("img");
-			        img.src = "https://cdn.betterttv.net/emote/" + value.id + "/1x";
-			        img.width = 32;
-			        img.height = 32;
-					var text = document.createTextNode(value.code);
-					if(n >= 3){
-						table2.appendChild(tr3);
-						table2.appendChild(tr4);
-						tr3 = document.createElement("tr");
-						tr4 = document.createElement("tr");
-				    	n = 0;
-				    }
-					var td1 = document.createElement("td");
-					td1.appendChild(img);
-			       	tr3.appendChild(td1);
-
-					var td2 = document.createElement("td");
-					td2.appendChild(text);
-			       	tr4.appendChild(td2);
-			       	n++;
-				});
-			});
-		});
-		table2.appendChild(tr3);
-		table2.appendChild(tr4);
-		elmBttv.appendChild(table2);
 	}
 	
 </script>
