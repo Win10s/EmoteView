@@ -118,8 +118,6 @@
 			        img.height = 32;
 					var text = document.createTextNode(value.code);
 					if(n >= 3){
-						table2.appendChild(tr3);
-						table2.appendChild(tr4);
 						tr3 = document.createElement("tr");
 						tr4 = document.createElement("tr");
 				    	n = 0;
@@ -132,6 +130,8 @@
 					td2.appendChild(text);
 			       	tr4.appendChild(td2);
 			       	n++;
+					table2.appendChild(tr3);
+					table2.appendChild(tr4);
 				});
 				json2.sharedEmotes.forEach(function(value) {
 					var img = document.createElement("img");
