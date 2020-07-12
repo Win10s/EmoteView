@@ -1,40 +1,69 @@
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Twitch Emote View</title>
-		<style>
-			body{
-				background: #1e1e1e;
-			}
-			.inner{
-				width: 80%;
-				margin: 0 auto;
-				max-width: 500px;
-				border:0;
-				padding:10px;
-				font-size:1.3em;
-				font-family:Arial, sans-serif;
-				color:#c2c2c2;
-				border:solid 1px #7d7d7d;
-			}
-		  </style>
-  		<div class="inner">
-			<body>
-				<form action="customemote/index.html" method="get">
-					Twitch名
-					<input name="name" value="shinjifromjapanxd" type="text">
-					<br>
-					BTTV
-					<input name="bttv" value="true" type="text">
-					<br>
-					FrankerFaceZ
-					<input name="frankerfacez" value="true" type="text">
-					<br>
-		        	<input type="submit" value="表示">
-					<br>
-				</form>
 
-			</body>
-		</div>
-	</head>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Twitch関係</title>
+@import url("https://fonts.googleapis.com/css?family=Ropa+Sans");
+body {
+  background-color: #181818;
+  color: white;
+  font-family: 'Ropa Sans', sans-serif;
+  font-size: 24px;
+  overflow: hidden;
+}
+
+#main {
+  list-style: none;
+  overflow: hidden;
+}
+
+#main li {
+  border-radius: 5%;
+  width: 200px;
+  text-align: center;
+  background-color: #333;
+  float: left;
+  margin-right: 15px;
+  padding: 10px;
+  position: relative;
+  left: 25px;
+}
+
+#main li a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: bold;
+}
+
+#main .CustomButton img {
+  border-radius: 5%;
+}
+</style>
+</head>
+<body translate="no">
+<html>
+<body>
+<ul id="main">
+<h2>Twitch関係</h2>
+<hr>
+<div class="center">
+<li>
+<a class="CustomButton" href="twitchview">
+<img src="https://i.imgur.com/MxNEAWK.png" width=120>
+<div class="Text">Twitch Chat View</div>
+</a>
+</li>
+<li>
+<a class="CustomButton" href="emotelist/customemote">
+<img src="https://i.imgur.com/oxhFCZ3.png" width=120>
+<div class="Text">Emote List</div>
+
+</li>
+</div>
+</ul>
+</body>
+</html>
+</body>
 </html>
