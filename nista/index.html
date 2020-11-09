@@ -38,7 +38,7 @@
     </head>
     <body>
     	<figure>
-			<video id="ed" muted src="./video/ending.mp4" width="16" height="9" autoplay></video>
+			<video id="ed" src="./video/ending.mp4" width="16" height="9" autoplay></video>
 			<figcaption id="name"></figcaption>
 		</figure>
 	</body>
@@ -62,7 +62,7 @@
 			}
 		});
 		video.addEventListener("timeupdate", function(){
-			textName.innerHTML = "";
+			textName.innerHTML = "　";
 			if(video.currentTime > 10.5){
 				if(video.currentTime < 13.2){
 					textName.innerHTML = name;
@@ -72,6 +72,6 @@
 		var textName = document.getElementById("name");
 		var textWidth = textName.clientWidth;
 		var i = (calcStrWidth(name, "2000px", "源ノ明朝 Heavy") - calcStrWidth(name, "1000px", "源ノ明朝 Heavy")) / 1000;
-		textName.style.fontSize = 1720 / i + "px";
+		textName.style.fontSize = 1500 / i + "px";
 	</script>
 </html>
